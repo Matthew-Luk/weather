@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+$primary: #326dee;
+$secondary: #1ac888;
+$error: #d32752;
+$info: #f6c31c;
+
+h1 {
+    a {
+        color: $primary;
+    }
+}
+
+h1 {
+    color: $info;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+    background-image: linear-gradient(#6143d9, #49c0d4);
+    // background-image: linear-gradient(#1417b2, #52095d);
+    overflow: hidden;
+}
+
+.temperatures {
+    display: flex;
+    gap: 1.6rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+}

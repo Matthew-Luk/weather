@@ -1,7 +1,10 @@
 import React from 'react'
 import axios from 'axios'
+import '../css/styles.scss'
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+    const { weatherList, setWeatherList } = props
 
     const searchHandler = (e) => {
         console.log(e.target[0].value)
@@ -16,14 +19,12 @@ const Navbar = () => {
     }
 
     return (
-        <div>
-            <div>
-                <form onSubmit={searchHandler}>
-                    <label htmlFor=""></label>
-                    <input type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
-                    <button>Search</button>
-                </form>
-            </div>
+        <div className='navbar'>
+            <form className="searchBar" onSubmit={searchHandler}>
+                <label htmlFor="">Search Weather:</label>
+                <input type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
+                <button>Search</button>
+            </form>
         </div>
     )
 }
