@@ -3,7 +3,9 @@ import '../css/styles.scss'
 
 const Card = () => {
     return (
-        <div>Card</div>
+        <div>
+            
+        </div>
     )
 }
 

@@ -23,7 +23,7 @@ const Navbar = (props) => {
             <form className="searchBar" onSubmit={searchHandler}>
                 <label htmlFor="">Search Weather:</label>
                 <input type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
-                <button>Search</button>
+                <button className='searchButton'>Search</button>
             </form>
         </div>
     )
