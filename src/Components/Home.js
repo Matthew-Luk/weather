@@ -3,22 +3,19 @@ import axios from "axios";
 import Navbar from './Navbar';
 import '../css/styles.scss'
 import Card from './Card';
-import { convertDate, getSun } from './functions';
+import { convertDate, getMoon } from './functions';
 
 const Home = () => {
-    const [ip, setIP] = useState("")
     const [weatherList,setWeatherList] = useState([])
     const [currentWeather, setCurrentWeather] = useState({})
-    const [sunOut, setSunOut] = useState("")
+    const [moonOut, setMoonOut] = useState(false)
 
     const getData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
-        setIP(res.data.ip);
-        // axios.get(`http://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&aqi=yes`)
-        // axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&aqi=yes`)
         axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
         .then((result) => {
-            // console.log(result.data.forecast.forecastday[0].astro.is_sun_up)
+            let astroData = result.data.forecast.forecastday[0].astro
+            setMoonOut(getMoon(result.data.location.localtime.slice(11,16), astroData.moonrise, astroData.sunrise))
             setCurrentWeather({
                 cityName: result.data.location.name,
                 F: result.data.current.temp_f,
@@ -28,7 +25,6 @@ const Home = () => {
                 condition: result.data.current.condition.text,
                 icon: result.data.current.condition.icon,
                 forecastList: result.data.forecast.forecastday,
-                sunOut: getSun(result.data.forecast.forecastday[0].astro.is_sun_up)
             })
         })
         .catch((err) => {
@@ -41,7 +37,7 @@ const Home = () => {
     },[])
 
     return (
-        <div className='container' style={{}}>
+        <div className={`container ${moonOut ? "dark" : "light"}`}>
             <Navbar weatherList={weatherList} setWeatherList={setWeatherList}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>

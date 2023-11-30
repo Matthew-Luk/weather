@@ -24,12 +24,17 @@ p {
 .container {
     height: 100vh;
     width: 100vw;
-    // background-image: linear-gradient(#6143d9, #49c0d4);
-    // background-image: linear-gradient(#49c0d4, #fae97f);
-    // background-image: linear-gradient(#1417b2, #52095d);
     overflow: hidden;
     font-size: $primary-font-size;
     font-family: $primary-font;
+}
+
+.light {
+    background-image: linear-gradient(#49c0d4, #fae97f);
+}
+
+.dark {
+    background-image: linear-gradient(#1417b2, #52095d);
 }
 
 .navbar {

@@ -3,9 +3,9 @@ export function convertDate(date){
     if(parseInt(date.slice(11,13)) > 12){
         str = parseInt(date.slice(11,13) - 12).toString() + date.slice(13,16) + "PM"
     }else{
-        if(date.slice(11,13) == "00"){
+        if(date.slice(11,13) === "00"){
             str = "12" + date.slice(13,16) + "AM"
-        }else if(date.slice(11,13) == "12"){
+        }else if(date.slice(11,13) === "12"){
             str = "12" + date.slice(13,16) + "PM"
         }else{
             if(parseInt(date.slice(11,13)) < 10){
@@ -18,10 +18,31 @@ export function convertDate(date){
     return str
 }
 
-export function getSun(x){
-    if(x === 1){
-        return "backgroundImage: linearGradient(#49c0d4, #fae97f);"
+function convertTime(x){
+    let timeList = []
+    let convertedTime = 0
+    if(x !== undefined && x !== 0){
+        for(let i=0;i<5;i++){
+            if(x[i] !== ":"){
+                timeList.push(parseInt(x[i]) * 10**(3-timeList.length))
+            }
+        }
+        for(let i=0;i<timeList.length;i++){
+            convertedTime = convertedTime + timeList[i]
+        }
+        if(x.slice(6,8) === "PM"){
+            convertedTime = convertedTime + 1200
+        }else if(x.slice(6,8) === "AM" && x.slice(0,2) === "12"){
+            convertedTime = convertedTime - 1200
+        }
+    }
+    return convertedTime
+}
+
+export function getMoon(localTime, moonRise, sunRise){
+    if(convertTime(localTime) >= convertTime(moonRise) || convertTime(localTime) <= convertTime(sunRise)){
+        return true
     }else{
-        return "backgroundImage: linearGradient(#1417b2, #52095d);"
+        return false
     }
 }
