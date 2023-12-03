@@ -7,6 +7,7 @@
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128 */
 
 $primary-color: #326dee;
+$secondary-color: #F5F5F5;
 $primary-font-size: 1.6rem;
 $primary-font: "Open Sans";
 $primary-border-radius: 0.8rem;
@@ -17,24 +18,31 @@ p {
     }
 }
 
-p {
-    color: black;
-}
-
 .container {
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: $primary-font-size;
     font-family: $primary-font;
 }
 
 .light {
-    background-image: linear-gradient(#49c0d4, #fae97f);
+    background-image: linear-gradient(#49c0d4, #fae97f, #49c0d4);
 }
 
 .dark {
-    background-image: linear-gradient(#1417b2, #52095d);
+    background-image: linear-gradient(#1417b2, #52095d, #1417b2);
+}
+
+.overcast, .partly_cloudy, .cloudy {
+    background-image: linear-gradient(to top right, #696969, #e1e1e1);
+}
+
+.clear, .sunny {
+    background-image: linear-gradient(to top right, #eb6221, #fbdf17);
 }
 
 .navbar {
@@ -42,6 +50,8 @@ p {
     justify-content: center;
     align-items: center;
     height: 6rem;
+    width: 100vw;
+    margin-top: 1.6rem;
     .searchBar {
         display: flex;
         align-items: center;
@@ -76,7 +86,8 @@ p {
     min-height: 40rem;
     height: auto;
     background-color: #fff;
-    margin: auto;
+    margin-top: 2.4rem;
+    // margin: auto;
     border-radius: $primary-border-radius;
     // background-image: url('../images/night.jpg');
     // background-image: url('../images/sunny.jpg');
@@ -96,5 +107,32 @@ p {
     }
     img {
         width: 8rem;
+    }
+}
+
+.weatherList {
+    height: auto;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.2rem;
+    place-items: center;
+    margin-top: 3.2rem;
+}
+
+.card {
+    height: 40rem;
+    width: 30rem;
+    border: 2px solid black;
+    border-radius: $primary-border-radius;
+    color: $secondary-color;
+    display: flex;
+    flex-direction: column;
+    .deleteButton {
+        color: black;
+        position: relative;
+        left: -0.8rem;
+        top: 0.4rem;
+        align-self: end;
     }
 }
