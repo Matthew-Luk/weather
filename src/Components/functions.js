@@ -1,4 +1,5 @@
 export function convertDate(date){
+    console.log(date)
     let str = ""
     if(parseInt(date.slice(11,13)) > 12){
         str = parseInt(date.slice(11,13) - 12).toString() + date.slice(13,16) + "PM"
@@ -8,13 +9,14 @@ export function convertDate(date){
         }else if(date.slice(11,13) === "12"){
             str = "12" + date.slice(13,16) + "PM"
         }else{
-            if(parseInt(date.slice(11,13)) < 10){
-                str = date.slice(12,13) + date.slice(13,16) + "AM"
+            if(parseInt(date.slice(11,13)) == 0){
+                str = "12:" + date.slice(13,16) + "AM"
             }else{
                 str = date.slice(11,13) + date.slice(13,16) + "AM"
             }
         }
     }
+    console.log(str)
     return str
 }
 
@@ -39,10 +41,16 @@ function convertTime(x){
     return convertedTime
 }
 
-export function getMoon(localTime, moonRise, sunRise){
-    if(convertTime(localTime) >= convertTime(moonRise) || convertTime(localTime) <= convertTime(sunRise)){
+export function getMoon(localTime, sunset, sunrise){
+    if(convertTime(localTime) >= convertTime(sunset) || convertTime(localTime) <= convertTime(sunrise)){
         return true
     }else{
         return false
     }
+}
+
+export function convertCondition(condition){
+    condition = condition.toLowerCase()
+    condition = condition.replace(" ", "_")
+    return condition
 }
