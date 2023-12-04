@@ -14,13 +14,20 @@ const Navbar = (props) => {
             if(nameList.includes(result.data.location.name)){
                 console.log("Already in list")
             }else{                
-                setWeatherList([...weatherList,result])
                 setNameList([...nameList,result.data.location.name])
+                setWeatherList([...weatherList,result])
+                localStorage.setItem("savedWeatherList", JSON.stringify([...weatherList,result]))
+                // localStorage.setItem("savedNames", JSON.stringify([...nameList,result.data.location.name]))
             }
         })
         .catch((err) => {
             console.log(err)
         })
+    }
+
+    const clearLocalStorage = () => {
+        localStorage.clear()
+        window.location.reload()
     }
 
     return (
@@ -29,6 +36,7 @@ const Navbar = (props) => {
                 <label htmlFor="">Search Weather:</label>
                 <input type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
                 <button className='searchButton'>Search</button>
+                <button onClick={clearLocalStorage}>Clear</button>
             </form>
         </div>
     )

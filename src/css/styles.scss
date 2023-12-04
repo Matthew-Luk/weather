@@ -35,14 +35,29 @@ p {
 
 .dark {
     background-image: linear-gradient(#1417b2, #52095d, #1417b2);
+    label {
+        color: $secondary-color;
+    }
 }
 
 .overcast, .partly_cloudy, .cloudy {
     background-image: linear-gradient(to top right, #696969, #e1e1e1);
 }
 
-.clear, .sunny {
+.sunny {
     background-image: linear-gradient(to top right, #eb6221, #fbdf17);
+}
+
+.clear {
+    background-image: linear-gradient(to top right, #097331, #83db1c);
+}
+
+.light_snow, .light_freezing_rain, .freezing_fog {
+    background-image: linear-gradient(to top right, #1e75bd, #0ad8c6);
+}
+
+.light_rain, .mist, .light_drizzle, .patchy_rain_possible, .moderate_rain {
+    background-image: linear-gradient(to top right, #543e28, #c2b49d);
 }
 
 .navbar {
@@ -85,9 +100,8 @@ p {
     width: 50%;
     min-height: 40rem;
     height: auto;
-    background-color: #fff;
+    background-color: $secondary-color;
     margin-top: 2.4rem;
-    // margin: auto;
     border-radius: $primary-border-radius;
     // background-image: url('../images/night.jpg');
     // background-image: url('../images/sunny.jpg');
@@ -118,21 +132,83 @@ p {
     gap: 1.2rem;
     place-items: center;
     margin-top: 3.2rem;
+    margin-bottom: 12.8rem;
 }
 
 .card {
-    height: 40rem;
-    width: 30rem;
-    border: 2px solid black;
+    height: 32rem;
+    width: 28rem;
     border-radius: $primary-border-radius;
     color: $secondary-color;
     display: flex;
     flex-direction: column;
+    padding: 1.2rem;
+    font-weight: 500;
     .deleteButton {
-        color: black;
+        color: $secondary-color;
         position: relative;
-        left: -0.8rem;
-        top: 0.4rem;
-        align-self: end;
+        left: 0;
+        align-self: flex-end;
+    }
+    .location {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.8rem;
+        &::after{
+            content: "";
+            position: relative;
+            width: 8rem;
+            height: 0.1rem;
+            top: 0.4rem;
+            background-color: $secondary-color;
+        }
+    }
+    .time{
+        width: 8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        font-weight: 700;
+        .hour{
+            font-size: 3.2rem;
+        }
+        .meridiem{
+            margin-top: -0.8rem;
+        }
+    }
+    img {
+        height: auto;
+        width: 8rem;
+        margin-left: 4.8rem;
+        align-self: center;
+    }
+    .temperatures {
+        display: flex;
+        gap: 1.2rem;
+        justify-content: center;
+        font-size: 2.4rem;
+    }
+    .condition {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 1.2rem;
+        &::before{
+            content: "";
+            position: relative;
+            width: 12rem;
+            height: 0.1rem;
+            top: -0.6rem;
+            background-color: $secondary-color;
+        }
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        p{
+            font-size: 1.2rem;
+        }
     }
 }

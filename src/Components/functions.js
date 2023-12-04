@@ -1,22 +1,23 @@
 export function convertDate(date){
-    console.log(date)
     let str = ""
     if(parseInt(date.slice(11,13)) > 12){
-        str = parseInt(date.slice(11,13) - 12).toString() + date.slice(13,16) + "PM"
+        str = parseInt(date.slice(11,13) - 12).toString() + date.slice(13,16) + " PM"
     }else{
         if(date.slice(11,13) === "00"){
-            str = "12" + date.slice(13,16) + "AM"
+            str = "12" + date.slice(13,16) + " AM"
         }else if(date.slice(11,13) === "12"){
-            str = "12" + date.slice(13,16) + "PM"
+            str = "12" + date.slice(13,16) + " PM"
         }else{
-            if(parseInt(date.slice(11,13)) == 0){
-                str = "12:" + date.slice(13,16) + "AM"
+            if(parseInt(date.slice(11,13)) === 0){
+                str = "12:" + date.slice(13,16) + " AM"
             }else{
-                str = date.slice(11,13) + date.slice(13,16) + "AM"
+                str = date.slice(11,13) + date.slice(13,16) + " AM"
             }
         }
     }
-    console.log(str)
+    if(str.length === 7){
+        str = "0" + str
+    }
     return str
 }
 
@@ -53,4 +54,14 @@ export function convertCondition(condition){
     condition = condition.toLowerCase()
     condition = condition.replace(" ", "_")
     return condition
+}
+
+export function convertLocation(city, region, country){
+    let str = ""
+    if(country.includes("United States of America")){
+        str = city + ", " + region
+    }else{
+        str = city + ", " + country
+    }
+    return str
 }

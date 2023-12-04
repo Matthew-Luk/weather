@@ -36,6 +36,16 @@ const Home = () => {
 
     useEffect(() => {
         getData()
+        const newWeatherList = JSON.parse(localStorage.getItem("savedWeatherList"))
+        if(newWeatherList){
+            setWeatherList(newWeatherList)
+            console.log(newWeatherList)
+        }
+        // const newNames = localStorage.getItem("savedNames")
+        // if(newNames){
+        //     setNameList(newNames)
+        //     console.log(newNames)
+        // }
     },[])
 
     return (
@@ -75,7 +85,9 @@ const Home = () => {
                             setNameList={setNameList}
                             locationName={item.data.location.name}
                             locationCountry={item.data.location.country}
+                            locationRegion={item.data.location.region}
                             localTime={convertDate(item.data.location.localtime)}
+                            lastUpdated={item.data.current.last_updated}
                             icon={item.data.current.condition.icon}
                             condition={item.data.current.condition.text}
                             temp_f={item.data.current.temp_f}
