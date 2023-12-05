@@ -4,19 +4,19 @@ import Navbar from './Navbar';
 import '../css/styles.scss';
 import Card from './Card';
 import { convertDate, getMoon } from './functions';
+import { GrLocation } from "react-icons/gr";
 
 const Home = () => {
     const [weatherList,setWeatherList] = useState([])
     const [currentWeather, setCurrentWeather] = useState({})
     const [moonOut, setMoonOut] = useState(false)
-    const [nameList, setNameList] = useState([])
 
     const getData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
         axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
         .then((result) => {
+            console.log(result.data)
             let astroData = result.data.forecast.forecastday[0].astro
-            // console.log(astroData)
             setMoonOut(getMoon(result.data.location.localtime.slice(11,16), astroData.sunset, astroData.sunrise))
             setCurrentWeather({
                 cityName: result.data.location.name,
@@ -41,19 +41,20 @@ const Home = () => {
             setWeatherList(newWeatherList)
             console.log(newWeatherList)
         }
-        // const newNames = localStorage.getItem("savedNames")
-        // if(newNames){
-        //     setNameList(newNames)
-        //     console.log(newNames)
-        // }
     },[])
+
+    const clearLocalStorage = () => {
+        console.log(weatherList.length)
+        localStorage.clear()
+        window.location.reload()
+    }
 
     return (
         <div className={`container ${moonOut ? "dark" : "light"}`}>
-            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} nameList={nameList} setNameList={setNameList}/>
+            <Navbar weatherList={weatherList} setWeatherList={setWeatherList}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>
-                    <h2>Your Location (based on IP address)</h2>
+                    <h2>Your Location <GrLocation /></h2>
                     <p>{currentWeather.cityName}</p>
                     <div className='temperatures'>
                         <p>{currentWeather.F}&deg;F</p>
@@ -61,8 +62,6 @@ const Home = () => {
                     </div>
                     <img alt='weather icon' src={currentWeather.icon}></img>
                     <p>{currentWeather.condition}</p>
-                    <p>Local Time: {currentWeather.time}</p>
-                    <p>Updated at: {currentWeather.updated}</p>
                     <p>{currentWeather.sunOut}</p>
                 </div>
                 <div className='currentCardContent'>
@@ -73,6 +72,13 @@ const Home = () => {
 
                     </div>
                 </div>
+                <div className='footer'>
+                    <p>Local Time: {currentWeather.time}</p>
+                    <p>Updated at: {currentWeather.updated}</p>
+                </div>
+            </div>
+            <div className="clearButton">
+                <button className={`${weatherList.length === 0 ? "noDisplay" : ""}`} onClick={clearLocalStorage}>Clear All</button>
             </div>
             <div className='weatherList'>
                 {
@@ -81,8 +87,6 @@ const Home = () => {
                             idx={index}
                             weatherList={weatherList}
                             setWeatherList={setWeatherList}
-                            nameList={nameList}
-                            setNameList={setNameList}
                             locationName={item.data.location.name}
                             locationCountry={item.data.location.country}
                             locationRegion={item.data.location.region}

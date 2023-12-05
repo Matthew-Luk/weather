@@ -31,11 +31,18 @@ p {
 
 .light {
     background-image: linear-gradient(#49c0d4, #fae97f, #49c0d4);
+    .currentCard {
+        background-image: url('../images/sunny.jpg');
+    }
 }
 
 .dark {
     background-image: linear-gradient(#1417b2, #52095d, #1417b2);
     label {
+        color: $secondary-color;
+    }
+    .currentCard {
+        background-image: url('../images/night.jpg');
         color: $secondary-color;
     }
 }
@@ -45,7 +52,8 @@ p {
 }
 
 .sunny {
-    background-image: linear-gradient(to top right, #eb6221, #fbdf17);
+    // background-image: linear-gradient(to top right, #eb6221, #fbdf17);
+    background-image: linear-gradient(to top right, #fbdf17, #edd494);
 }
 
 .clear {
@@ -97,21 +105,21 @@ p {
 }
 
 .currentCard {
-    width: 50%;
+    width: 70rem;
     min-height: 40rem;
     height: auto;
     background-color: $secondary-color;
     margin-top: 2.4rem;
     border-radius: $primary-border-radius;
-    // background-image: url('../images/night.jpg');
-    // background-image: url('../images/sunny.jpg');
-    // background-repeat: no-repeat;
-    // background-size: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
     .currentCardHeader{
         display: flex;
         flex-direction: column;
         align-items: center;
         h2 {
+            display: flex;
+            align-items: center;
             font-weight: 500;
         }
         .temperatures {
@@ -124,6 +132,16 @@ p {
     }
 }
 
+.clearButton {
+    width: 50%;
+    display: flex;
+    button{
+        height: 2.4rem;
+        margin-left: auto;
+        margin-top: 3.2rem;
+    }
+}
+
 .weatherList {
     height: auto;
     width: 70%;
@@ -131,7 +149,7 @@ p {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1.2rem;
     place-items: center;
-    margin-top: 3.2rem;
+    margin-top: 1.2rem;
     margin-bottom: 12.8rem;
 }
 
@@ -211,4 +229,8 @@ p {
             font-size: 1.2rem;
         }
     }
+}
+
+.noDisplay {
+    display: none;
 }

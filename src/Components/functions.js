@@ -52,7 +52,7 @@ export function getMoon(localTime, sunset, sunrise){
 
 export function convertCondition(condition){
     condition = condition.toLowerCase()
-    condition = condition.replace(" ", "_")
+    condition = condition.replaceAll(" ", "_")
     return condition
 }
 
@@ -64,4 +64,13 @@ export function convertLocation(city, region, country){
         str = city + ", " + country
     }
     return str
+}
+
+export function checkWeatherList(name, list){
+    for(let i=0;i<list.length;i++){
+        if(name === list[i].data.location.name){
+            return true
+        }
+    }
+    return false
 }

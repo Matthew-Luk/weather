@@ -8,8 +8,6 @@ const Card = (props) => {
 
     const {weatherList,
         setWeatherList,
-        nameList,
-        setNameList,
         locationName,
         locationCountry,
         locationRegion,
@@ -26,11 +24,6 @@ const Card = (props) => {
             return index !== idx
         })
         setWeatherList([...newWeatherList])
-        console.log(newWeatherList)
-        // const newNameList = localStorage.getItem("savedNames").filter((item,index) => {
-        //     return index !== idx
-        // })
-        // setNameList([...newNameList])
     }
 
     return (
