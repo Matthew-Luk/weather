@@ -24,6 +24,7 @@ const Card = (props) => {
             return index !== idx
         })
         setWeatherList([...newWeatherList])
+        localStorage.setItem("savedWeatherList", JSON.stringify([...newWeatherList]))
     }
 
     return (
