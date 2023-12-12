@@ -3,13 +3,15 @@ import axios from "axios";
 import Navbar from './Navbar';
 import '../css/styles.scss';
 import Card from './Card';
-import { convertDate, getMoon } from './functions';
+import { convertDate, getMoon, convertDayOfTheWeek } from './functions';
 import { GrLocation } from "react-icons/gr";
 
 const Home = () => {
     const [weatherList,setWeatherList] = useState([])
     const [currentWeather, setCurrentWeather] = useState({})
     const [moonOut, setMoonOut] = useState(false)
+    const [searchValue, setSearchValue] = useState("")
+    const [forecastList, setForecastList] = useState([])
 
     const getData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
@@ -17,6 +19,7 @@ const Home = () => {
         .then((result) => {
             console.log(result.data)
             let astroData = result.data.forecast.forecastday[0].astro
+            setForecastList(result.data.forecast.forecastday)
             setMoonOut(getMoon(result.data.location.localtime.slice(11,16), astroData.sunset, astroData.sunrise))
             setCurrentWeather({
                 cityName: result.data.location.name,
@@ -26,7 +29,10 @@ const Home = () => {
                 updated: convertDate(result.data.current.last_updated),
                 condition: result.data.current.condition.text,
                 icon: result.data.current.condition.icon,
-                forecastList: result.data.forecast.forecastday,
+                wind: result.data.current.wind_mph,
+                precip: result.data.current.precip_in,
+                pressure: result.data.current.pressure_in,
+                humidity: result.data.current.humidity
             })
         })
         .catch((err) => {
@@ -39,19 +45,17 @@ const Home = () => {
         const newWeatherList = JSON.parse(localStorage.getItem("savedWeatherList"))
         if(newWeatherList){
             setWeatherList(newWeatherList)
-            console.log(newWeatherList)
         }
     },[])
 
     const clearLocalStorage = () => {
-        console.log(weatherList.length)
         localStorage.clear()
         window.location.reload()
     }
 
     return (
         <div className={`container ${moonOut ? "dark" : "light"}`}>
-            <Navbar weatherList={weatherList} setWeatherList={setWeatherList}/>
+            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>
                     <h2>Your Location <GrLocation /></h2>
@@ -65,17 +69,28 @@ const Home = () => {
                     <p>{currentWeather.sunOut}</p>
                 </div>
                 <div className='currentCardContent'>
-                    <div className=''>
-
-                    </div>
                     <div className='forecast'>
-
+                        {
+                            forecastList.map((item,index) => (
+                                <div className='forecastItem' key={index}>
+                                    <p>{convertDayOfTheWeek(item.date_epoch)}</p>
+                                    <img src={item.day.condition.icon} alt="" />
+                                    <p>{item.day.avgtemp_f}&deg;F / {item.day.avgtemp_c}&deg;C</p>
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div className='currentWeatherConditions'>
+                        <p>Wind: {currentWeather.wind} mph</p>
+                        <p>Precipitation: {currentWeather.precip} in</p>
+                        <p>Pressure: {currentWeather.pressure} in</p>
+                        <p>Humidity: {currentWeather.humidity}%</p>
                     </div>
                 </div>
-                <div className='footer'>
+                {/* <div className='footer'>
                     <p>Local Time: {currentWeather.time}</p>
                     <p>Updated at: {currentWeather.updated}</p>
-                </div>
+                </div> */}
             </div>
             <div className="clearButton">
                 <button className={`${weatherList.length === 0 ? "noDisplay" : ""}`} onClick={clearLocalStorage}>Clear All</button>
