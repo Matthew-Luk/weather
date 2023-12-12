@@ -5,7 +5,7 @@ import { checkWeatherList } from './functions';
 
 const Navbar = (props) => {
 
-    const {weatherList, setWeatherList} = props
+    const {weatherList, setWeatherList, searchValue, setSearchValue} = props
 
     const searchHandler = (e) => {
         e.preventDefault()
@@ -18,17 +18,23 @@ const Navbar = (props) => {
                 setWeatherList([...weatherList,result])
                 localStorage.setItem("savedWeatherList", JSON.stringify([...weatherList,result]))
             }
+            setSearchValue("")
         })
         .catch((err) => {
             console.log(err)
         })
     }
 
+    const searchValueHandler = (e) => {
+        e.preventDefault()
+        setSearchValue(e.target.value)
+    }
+
     return (
         <div className='navbar'>
             <form className="searchBar" onSubmit={searchHandler}>
                 <label htmlFor="">Search Weather:</label>
-                <input type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
+                <input onChange={searchValueHandler} value={searchValue} type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
                 <button className='searchButton'>Search</button>
             </form>
         </div>
