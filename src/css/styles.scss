@@ -31,9 +31,9 @@ p {
 
 .light {
     background-image: linear-gradient(#49c0d4, #fae97f, #49c0d4);
-    .currentCard {
-        background-image: url('../images/sunny.jpg');
-    }
+    // .currentCard {
+        // background-image: url('../images/sunny.jpg');
+    // }
 }
 
 .dark {
@@ -41,10 +41,10 @@ p {
     label {
         color: $secondary-color;
     }
-    .currentCard {
-        background-image: url('../images/night.jpg');
-        color: $secondary-color;
-    }
+    // .currentCard {
+    //     background-image: url('../images/night.jpg');
+    //     color: $secondary-color;
+    // }
 }
 
 .overcast, .partly_cloudy, .cloudy, .fog {
@@ -108,8 +108,10 @@ p {
     width: 70rem;
     min-height: 40rem;
     height: auto;
+    color: $secondary-color;
     background-color: $secondary-color;
     margin-top: 2.4rem;
+    background-image: linear-gradient(to bottom, #0b151e, #518b9c);
     border-radius: $primary-border-radius;
     background-repeat: no-repeat;
     background-size: cover;
@@ -131,8 +133,12 @@ p {
         width: 8rem;
     }
     .currentCardContent {
+        margin-top: auto;
+        height: 18rem;
         display: flex;
+        align-items: center;
         .forecast {
+            flex: 3;
             display: flex;
             gap: 2.4rem;
             .forecastItem {
@@ -141,6 +147,20 @@ p {
                 align-items: center;
             }
         }
+        .currentWeatherConditions {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+    }
+    .footer {
+        height: 4rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        font-size: 1.2rem;
     }
 }
 
@@ -148,9 +168,13 @@ p {
     width: 50%;
     display: flex;
     button{
-        height: 2.4rem;
         margin-left: auto;
         margin-top: 3.2rem;
+        height: 3.2rem;
+        width: 6.4rem;
+        border-radius: $primary-border-radius;
+        border: none;
+        cursor: pointer;
     }
 }
 

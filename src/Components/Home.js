@@ -3,7 +3,7 @@ import axios from "axios";
 import Navbar from './Navbar';
 import '../css/styles.scss';
 import Card from './Card';
-import { convertDate, getMoon, convertDayOfTheWeek } from './functions';
+import { convertDate, getMoon, convertDayOfTheWeek, updateWeatherList } from './functions';
 import { GrLocation } from "react-icons/gr";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
         axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
         .then((result) => {
-            console.log(result.data)
+            // console.log(result.data)
             let astroData = result.data.forecast.forecastday[0].astro
             setForecastList(result.data.forecast.forecastday)
             setMoonOut(getMoon(result.data.location.localtime.slice(11,16), astroData.sunset, astroData.sunrise))
@@ -42,9 +42,19 @@ const Home = () => {
 
     useEffect(() => {
         getData()
-        const newWeatherList = JSON.parse(localStorage.getItem("savedWeatherList"))
-        if(newWeatherList){
-            setWeatherList(newWeatherList)
+        const temp = JSON.parse(localStorage.getItem("savedWeatherList"))
+        setWeatherList([])
+        if(temp){
+            // setWeatherList(temp)
+            let x = updateWeatherList(temp)
+            axios.all(x.map((value) => axios.get(`http://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${value}&aqi=yes`)))
+            .then((result) => {
+                console.log(result)
+                setWeatherList(result)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         }
     },[])
 
@@ -81,16 +91,16 @@ const Home = () => {
                         }
                     </div>
                     <div className='currentWeatherConditions'>
+                        <p>Weather Conditions:</p>
                         <p>Wind: {currentWeather.wind} mph</p>
                         <p>Precipitation: {currentWeather.precip} in</p>
                         <p>Pressure: {currentWeather.pressure} in</p>
                         <p>Humidity: {currentWeather.humidity}%</p>
                     </div>
                 </div>
-                {/* <div className='footer'>
-                    <p>Local Time: {currentWeather.time}</p>
-                    <p>Updated at: {currentWeather.updated}</p>
-                </div> */}
+                <div className='footer'>
+                    <p>Last updated: {currentWeather.updated}</p>
+                </div>
             </div>
             <div className="clearButton">
                 <button className={`${weatherList.length === 0 ? "noDisplay" : ""}`} onClick={clearLocalStorage}>Clear All</button>

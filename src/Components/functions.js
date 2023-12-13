@@ -88,3 +88,11 @@ export function convertDayOfTheWeek(epoch){
     let T = (Math.floor(epoch / 86400) + 4) % 7
     return key[T]
 }
+
+export function updateWeatherList(weatherList){
+    let arr = []
+    for(let i=0;i<weatherList.length;i++){
+        arr.push(weatherList[i].data.location.name)
+    }
+    return arr
+}
