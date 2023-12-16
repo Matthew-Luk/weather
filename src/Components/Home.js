@@ -12,6 +12,7 @@ const Home = () => {
     const [moonOut, setMoonOut] = useState(false)
     const [searchValue, setSearchValue] = useState("")
     const [forecastList, setForecastList] = useState([])
+    const [fToC, setFToC] = useState(1)
 
     const getData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
@@ -65,14 +66,13 @@ const Home = () => {
 
     return (
         <div className={`container ${moonOut ? "dark" : "light"}`}>
-            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue} fToC={fToC} setFToC={setFToC}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>
                     <h2>Your Location <GrLocation /></h2>
                     <p>{currentWeather.cityName}</p>
                     <div className='temperatures'>
-                        <p>{currentWeather.F}&deg;F</p>
-                        <p>{currentWeather.C}&deg;C</p>
+                        <p>{fToC ? `${currentWeather.F}°F` : `${currentWeather.C}°C`}</p>
                     </div>
                     <img alt='weather icon' src={currentWeather.icon}></img>
                     <p>{currentWeather.condition}</p>
@@ -80,18 +80,21 @@ const Home = () => {
                 </div>
                 <div className='currentCardContent'>
                     <div className='forecast'>
-                        {
-                            forecastList.map((item,index) => (
-                                <div className='forecastItem' key={index}>
-                                    <p>{convertDayOfTheWeek(item.date_epoch)}</p>
-                                    <img src={item.day.condition.icon} alt="" />
-                                    <p>{item.day.avgtemp_f}&deg;F / {item.day.avgtemp_c}&deg;C</p>
-                                </div>
-                            ))
-                        }
+                        <strong>Forecast</strong>
+                        <div className='forecastList'>
+                            {
+                                forecastList.map((item,index) => (
+                                    <div className='forecastItem' key={index}>
+                                        <p>{convertDayOfTheWeek(item.date_epoch)}</p>
+                                        <img src={item.day.condition.icon} alt="" />
+                                        <p>{fToC ? `${item.day.avgtemp_f}°F` : `${item.day.avgtemp_c}°C`}</p>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
                     <div className='currentWeatherConditions'>
-                        <p>Weather Conditions:</p>
+                        <strong>Weather Conditions:</strong>
                         <p>Wind: {currentWeather.wind} mph</p>
                         <p>Precipitation: {currentWeather.precip} in</p>
                         <p>Pressure: {currentWeather.pressure} in</p>
@@ -121,6 +124,8 @@ const Home = () => {
                             condition={item.data.current.condition.text}
                             temp_f={item.data.current.temp_f}
                             temp_c={item.data.current.temp_c}
+                            fToC={fToC}
+                            setFToC={setFToC}
                         />
                     ))
                 }

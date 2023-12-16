@@ -77,13 +77,13 @@ export function checkWeatherList(name, list){
 
 export function convertDayOfTheWeek(epoch){
     let key = {
+        0 : "Sun",
         1 : "Mon",
         2 : "Tues",
         3 : "Wed",
         4 : "Thurs",
         5 : "Fri",
-        6 : "Sat",
-        7 : "Sun"
+        6 : "Sat"
     }
     let T = (Math.floor(epoch / 86400) + 4) % 7
     return key[T]

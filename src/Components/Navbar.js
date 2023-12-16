@@ -5,7 +5,7 @@ import { checkWeatherList } from './functions';
 
 const Navbar = (props) => {
 
-    const {weatherList, setWeatherList, searchValue, setSearchValue} = props
+    const {weatherList, setWeatherList, searchValue, setSearchValue, fToC, setFToC} = props
 
     const searchHandler = (e) => {
         e.preventDefault()
@@ -30,12 +30,23 @@ const Navbar = (props) => {
         setSearchValue(e.target.value)
     }
 
+    const changeMeridium = (e) => {
+        e.preventDefault()
+        if(fToC === 1){
+            setFToC(0)
+        }else{
+            setFToC(1)
+        }
+        console.log(fToC)
+    }
+
     return (
         <div className='navbar'>
             <form className="searchBar" onSubmit={searchHandler}>
                 <label htmlFor="">Search Weather:</label>
                 <input onChange={searchValueHandler} value={searchValue} type="text" placeholder='Search city name, US Zipcode, UK Postcode, IP address'/>
                 <button className='searchButton'>Search</button>
+                <button onClick={changeMeridium}>{fToC === 1 ? "Change to C" : "Change to F"}</button>
             </form>
         </div>
     )
