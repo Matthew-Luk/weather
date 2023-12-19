@@ -27,7 +27,7 @@ const Card = (props) => {
 
     // useEffect(() => {
     //     const fetchData = async () => {
-    //         axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${locationName}&days=3&aqi=no&alerts=no`)
+    //         axios.get(`https://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${locationName}&days=3&aqi=no&alerts=no`)
     //         .then((result) => {
     //             console.log(result)
     //             if(result.data.location.localTime !== undefined){
