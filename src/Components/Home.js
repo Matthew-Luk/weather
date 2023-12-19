@@ -16,7 +16,7 @@ const Home = () => {
 
     const getData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
-        axios.get(`http://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
+        axios.get(`https://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
         .then((result) => {
             // console.log(result.data)
             let astroData = result.data.forecast.forecastday[0].astro
@@ -48,7 +48,7 @@ const Home = () => {
         if(temp){
             // setWeatherList(temp)
             let x = updateWeatherList(temp)
-            axios.all(x.map((value) => axios.get(`http://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${value}&aqi=yes`)))
+            axios.all(x.map((value) => axios.get(`https://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${value}&aqi=yes`)))
             .then((result) => {
                 console.log(result)
                 setWeatherList(result)

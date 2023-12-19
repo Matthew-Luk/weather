@@ -9,7 +9,7 @@ const Navbar = (props) => {
 
     const searchHandler = (e) => {
         e.preventDefault()
-        axios.get(`http://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${e.target[0].value}&aqi=yes`)
+        axios.get(`https://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${e.target[0].value}&aqi=yes`)
         .then((result) => {
             console.log(result)
             if(checkWeatherList(result.data.location.name, weatherList)){
