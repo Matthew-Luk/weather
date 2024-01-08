@@ -5,7 +5,7 @@ import { checkWeatherList } from './functions';
 
 const Navbar = (props) => {
 
-    const {weatherList, setWeatherList, searchValue, setSearchValue, fToC, setFToC} = props
+    const {weatherList, setWeatherList, searchValue, setSearchValue} = props
 
     const searchHandler = (e) => {
         e.preventDefault()

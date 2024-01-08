@@ -75,7 +75,7 @@ const Home = () => {
     return (
         <div className={`container ${moonOut ? "dark" : "light"}`}>
             <button className='scaleButton' onClick={changeScale}>{fToC === 1 ? "Change to °C" : "Change to °F"}</button>
-            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue} fToC={fToC} setFToC={setFToC}/>
+            <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>
                     <h2>Your Location <GrLocation /></h2>
@@ -134,7 +134,6 @@ const Home = () => {
                             temp_f={item.data.current.temp_f}
                             temp_c={item.data.current.temp_c}
                             fToC={fToC}
-                            setFToC={setFToC}
                         />
                     ))
                 }

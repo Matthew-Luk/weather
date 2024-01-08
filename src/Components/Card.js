@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../css/styles.scss';
-import axios from 'axios'
 import { convertCondition, convertLocation, convertDate } from './functions';
 import { FaDeleteLeft } from "react-icons/fa6";
 import { BsGear } from "react-icons/bs";
 
 const Card = (props) => {
-
-    // const [newLocalTime, setNewLocalTime] = useState("")
-
     const {weatherList,
         setWeatherList,
         locationName,
@@ -21,8 +17,7 @@ const Card = (props) => {
         temp_f,
         temp_c,
         idx,
-        fToC,
-        setFToC
+        fToC
     } = props
 
     // useEffect(() => {
