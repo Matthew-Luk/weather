@@ -12,12 +12,6 @@ $primary-font-size: 1.6rem;
 $primary-font: "Open Sans";
 $primary-border-radius: 0.8rem;
 
-p {
-    a {
-        color: $primary-color;
-    }
-}
-
 .container {
     height: 100vh;
     width: 100vw;
@@ -31,9 +25,6 @@ p {
 
 .light {
     background-image: linear-gradient(#49c0d4, #fae97f, #49c0d4);
-    // .currentCard {
-        // background-image: url('../images/sunny.jpg');
-    // }
 }
 
 .dark {
@@ -41,10 +32,6 @@ p {
     label {
         color: $secondary-color;
     }
-    // .currentCard {
-    //     background-image: url('../images/night.jpg');
-    //     color: $secondary-color;
-    // }
 }
 
 .overcast, .partly_cloudy, .cloudy, .fog {
@@ -52,7 +39,6 @@ p {
 }
 
 .sunny {
-    // background-image: linear-gradient(to top right, #eb6221, #fbdf17);
     background-image: linear-gradient(to top right, #fbdf17, #edd494);
 }
 
@@ -68,13 +54,23 @@ p {
     background-image: linear-gradient(to top right, #543e28, #c2b49d);
 }
 
+.scaleButton {
+    height: 3.2rem;
+    width: 9.6rem;
+    border-radius: $primary-border-radius;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-right: 2.4rem;
+    margin-top: 1.6rem;
+}
+
 .navbar {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 6rem;
     width: 100vw;
-    margin-top: 1.6rem;
     .searchBar {
         display: flex;
         align-items: center;

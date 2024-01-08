@@ -18,7 +18,6 @@ const Home = () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
         axios.get(`https://api.weatherapi.com/v1/forecast.json?key=ed7bf3890ad2432497a63148232608&q=${res.data.ip}&days=3&aqi=no&alerts=no`)
         .then((result) => {
-            // console.log(result.data)
             let astroData = result.data.forecast.forecastday[0].astro
             setForecastList(result.data.forecast.forecastday)
             setMoonOut(getMoon(result.data.location.localtime.slice(11,16), astroData.sunset, astroData.sunrise))
@@ -46,7 +45,6 @@ const Home = () => {
         const temp = JSON.parse(localStorage.getItem("savedWeatherList"))
         setWeatherList([])
         if(temp){
-            // setWeatherList(temp)
             let x = updateWeatherList(temp)
             axios.all(x.map((value) => axios.get(`https://api.weatherapi.com/v1/current.json?key=ed7bf3890ad2432497a63148232608&q=${value}&aqi=yes`)))
             .then((result) => {
@@ -59,6 +57,16 @@ const Home = () => {
         }
     },[])
 
+    const changeScale = (e) => {
+        e.preventDefault()
+        if(fToC === 1){
+            setFToC(0)
+        }else{
+            setFToC(1)
+        }
+        console.log(fToC)
+    }
+
     const clearLocalStorage = () => {
         localStorage.clear()
         window.location.reload()
@@ -66,6 +74,7 @@ const Home = () => {
 
     return (
         <div className={`container ${moonOut ? "dark" : "light"}`}>
+            <button className='scaleButton' onClick={changeScale}>{fToC === 1 ? "Change to °C" : "Change to °F"}</button>
             <Navbar weatherList={weatherList} setWeatherList={setWeatherList} searchValue={searchValue} setSearchValue={setSearchValue} fToC={fToC} setFToC={setFToC}/>
             <div className='currentCard'>
                 <div className='currentCardHeader'>
